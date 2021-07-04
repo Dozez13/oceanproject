@@ -19,6 +19,7 @@ public class Cell {
     }
     public Cell(Cell cell){
         this.oceanCoordinate = new Point(cell.getOceanCoordinate());
+        this.moveIsDone = cell.isMoveIsDone();
     }
 
     public boolean isMoveIsDone() {
