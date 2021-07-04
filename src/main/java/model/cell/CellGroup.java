@@ -26,15 +26,12 @@ public class CellGroup implements Validatable<CellGroup> {
     public CellGroup(int predatorNumber, int preyNumber, int obstaclesNumber, int rowNum, int colNum) {
         int totalCells = rowNum * colNum;
         int defaultCellsNumber = totalCells - (predatorNumber + preyNumber + obstaclesNumber);
-
-        Cell [] cellsArray = new Cell[totalCells];
-        Arrays.fill(cellsArray,0,predatorNumber,new Predator(Constant.TIME_TO_REPRODUCE,Constant.TIME_TO_FEED));
-        Arrays.fill(cellsArray,predatorNumber,predatorNumber+preyNumber,new Prey(Constant.TIME_TO_REPRODUCE));
-        Arrays.fill(cellsArray,predatorNumber+preyNumber,predatorNumber+preyNumber+obstaclesNumber,new Obstacle());
-        Arrays.fill(cellsArray,predatorNumber+preyNumber+obstaclesNumber,predatorNumber+preyNumber+obstaclesNumber+defaultCellsNumber,new Cell());
-        List<Cell> cellList = new ArrayList<>(Arrays.asList(cellsArray));
+        List<Cell> cellList = new ArrayList<>(totalCells);
+        addCell(predatorNumber, cellList, new Predator(Constant.TIME_TO_REPRODUCE, Constant.TIME_TO_FEED));
+        addCell(preyNumber, cellList, new Prey(Constant.TIME_TO_REPRODUCE));
+        addCell(obstaclesNumber, cellList, new Obstacle());
+        addCell(defaultCellsNumber, cellList, new Cell());
         Collections.shuffle(cellList);
-        cellList.forEach(System.out::println);
         IntStream.range(0, totalCells).forEach(i -> cellList.get(i).setOceanCoordinate(new Point(i % colNum, i / colNum)));
         this.cells = ListUtils.partition(cellList, colNum);
 
