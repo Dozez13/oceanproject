@@ -8,15 +8,8 @@ import java.util.Objects;
 public class Predator extends Prey {
     private static final ConsoleRepresentation CELL_REPRESENTATION = ConsoleRepresentation.PREDATOR;
     private int timeToFeed;
-
-    public Predator(int timeToReproduce, int timeToFeed) {
+    public Predator(int timeToReproduce,int timeToFeed){
         this(new Point(0,0),timeToReproduce,timeToFeed);
-
-    }
-    public Predator(Predator predator){
-      super(predator);
-      this.timeToFeed = predator.getTimeToFeed();
-
     }
     public Predator(Point oceanCoordinate, int timeToReproduce, int timeToFeed) {
         super(oceanCoordinate, timeToReproduce);

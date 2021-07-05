@@ -8,13 +8,8 @@ import java.util.Objects;
 public class Prey extends Cell {
     private static final ConsoleRepresentation CELL_REPRESENTATION = ConsoleRepresentation.PREY;
     private int timeToReproduce;
-
-    public Prey(int timeToReproduce) {
+    public Prey(int timeToReproduce){
         this(new Point(0,0),timeToReproduce);
-    }
-    public Prey(Prey prey){
-        super(prey);
-        this.timeToReproduce = prey.getTimeToReproduce();
     }
     public Prey(Point oceanCoordinate, int timeToReproduce) {
         super(oceanCoordinate);

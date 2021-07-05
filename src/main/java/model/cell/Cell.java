@@ -10,16 +10,11 @@ public class Cell {
     private Point oceanCoordinate;
     private static final ConsoleRepresentation CELL_REPRESENTATION = ConsoleRepresentation.CELL;
     private boolean moveIsDone = false;
-    public Cell() {
+    public Cell(){
         this(new Point(0,0));
     }
-
     public Cell(Point oceanCoordinate) {
         this.oceanCoordinate = oceanCoordinate;
-    }
-    public Cell(Cell cell){
-        this.oceanCoordinate = new Point(cell.getOceanCoordinate());
-        this.moveIsDone = cell.isMoveIsDone();
     }
 
     public boolean isMoveIsDone() {

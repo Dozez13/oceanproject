@@ -15,7 +15,10 @@ import org.apache.logging.log4j.Logger;
 import java.util.*;
 
 
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 
 public class CellGroup implements Validatable<CellGroup> {
@@ -26,11 +29,12 @@ public class CellGroup implements Validatable<CellGroup> {
     public CellGroup(int predatorNumber, int preyNumber, int obstaclesNumber, int rowNum, int colNum) {
         int totalCells = rowNum * colNum;
         int defaultCellsNumber = totalCells - (predatorNumber + preyNumber + obstaclesNumber);
+
         List<Cell> cellList = new ArrayList<>(totalCells);
-        addCell(predatorNumber, cellList, new Predator(Constant.TIME_TO_REPRODUCE, Constant.TIME_TO_FEED));
-        addCell(preyNumber, cellList, new Prey(Constant.TIME_TO_REPRODUCE));
-        addCell(obstaclesNumber, cellList, new Obstacle());
-        addCell(defaultCellsNumber, cellList, new Cell());
+        addCell(predatorNumber,()->new Predator(Constant.TIME_TO_REPRODUCE, Constant.TIME_TO_FEED),cellList);
+        addCell(preyNumber,()->new Prey(Constant.TIME_TO_REPRODUCE),cellList);
+        addCell(obstaclesNumber, Obstacle::new,cellList);
+        addCell(defaultCellsNumber, Cell::new,cellList);
         Collections.shuffle(cellList);
         IntStream.range(0, totalCells).forEach(i -> cellList.get(i).setOceanCoordinate(new Point(i % colNum, i / colNum)));
         this.cells = ListUtils.partition(cellList, colNum);
@@ -41,31 +45,10 @@ public class CellGroup implements Validatable<CellGroup> {
     public CellGroup(List<List<Cell>> cells) {
         this.cells = new ArrayList<>(cells);
     }
+    public <T>void addCell(int cellNumber, Supplier<T> supplier,List<?super T> cells){
 
-    public void addCell(int cellNumber, List<Cell> cells, Cell cell) {
-        for (int i = 0; i < cellNumber; i++) {
-            cells.add(new Cell(cell));
-        }
+        Stream.generate(supplier).limit(cellNumber).collect(Collectors.toCollection(()->cells));
     }
-
-    public void addCell(int cellNumber, List<Cell> cells, Prey cell) {
-        for (int i = 0; i < cellNumber; i++) {
-            cells.add(new Prey(cell));
-        }
-    }
-
-    public void addCell(int cellNumber, List<Cell> cells, Obstacle cell) {
-        for (int i = 0; i < cellNumber; i++) {
-            cells.add(new Obstacle(cell));
-        }
-    }
-
-    public void addCell(int cellNumber, List<Cell> cells, Predator cell) {
-        for (int i = 0; i < cellNumber; i++) {
-            cells.add(new Predator(cell));
-        }
-    }
-
         public void setMoveFalse(){
         cells.forEach(cellList->cellList.forEach(cell -> cell.setMoveIsDone(false)));
         }
