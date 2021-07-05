@@ -3,8 +3,6 @@ i
 9src/test/java/model/validator/CellGroupValidatorTest.java,9\0\90a981c61768a071b560364963503964174f4df4
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
-a
-1src/test/java/controller/OceanControllerTest.java,9\c\9c3731e23e3d530ee23a0d10d20617bd447a2b0d
 R
 "src/test/java/model/OceanTest.java,9\c\9c75b81bc7a5b5d7484b9f82b49ee9147959fabc
 b
@@ -23,7 +21,3 @@ h
 8src/main/java/exception/CellGroupExceptionContainer.java,0\e\0ee64cc22f1c004ab21d4d9a2c88e3349e6a6b0d
 V
 &src/main/java/model/cell/Obstacle.java,6\8\68fb18c55990dd7955605ae7cf9263c686f4a88d
-[
-+src/test/java/model/cell/CellGroupTest.java,9\9\99308f5e04ac7b4ae57a40f064e1c6c55e5264bf
-X
-(src/test/java/view/OceanPrinterTest.java,a\7\a7e5b3481b471c0881726163e0303855c1f546b9

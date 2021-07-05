@@ -28,6 +28,7 @@ class OceanPrinterTest {
     public void init(){
         oceanPrinter = new OceanPrinter();
         CellGroup cellGroup = new CellGroup(2, 5, 10, 2, 15);
+        cellGroup.initCellGroup();
         ocean = new Ocean(cellGroup);
     }
     @Test

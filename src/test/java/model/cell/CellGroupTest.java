@@ -17,6 +17,7 @@ class CellGroupTest {
     @BeforeEach
     public void init(){
         cellGroup = new CellGroup(2,3,5,5,2);
+        cellGroup.initCellGroup();
     }
     @Test
     void addCell() {

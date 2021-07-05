@@ -27,6 +27,7 @@ class OceanControllerTest {
      @BeforeEach
      public void init(){
          CellGroup cellGroup = new CellGroup(1, 2, 3, 4, 10);
+         cellGroup.initCellGroup();
          ocean = new Ocean(cellGroup);
          OceanPrinter oceanPrinter = new OceanPrinter();
          oceanController = new OceanController(ocean, oceanPrinter,1000);
