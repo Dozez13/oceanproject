@@ -24,23 +24,34 @@ import java.util.stream.Stream;
 public class CellGroup implements Validatable<CellGroup> {
     private static final Logger LOGGER = LogManager.getLogger(CellGroup.class);
     private List<List<Cell>> cells;
+    private int predatorNumber;
+    private int preyNumber;
+    private int obstaclesNumber;
+    private int rowNum;
+    private int colNum;
     private Validator<CellGroup> cellGroupValidator;
 
     public CellGroup(int predatorNumber, int preyNumber, int obstaclesNumber, int rowNum, int colNum) {
-        int totalCells = rowNum * colNum;
-        int defaultCellsNumber = totalCells - (predatorNumber + preyNumber + obstaclesNumber);
-
-        List<Cell> cellList = new ArrayList<>(totalCells);
-        addCell(predatorNumber,()->new Predator(Constant.TIME_TO_REPRODUCE, Constant.TIME_TO_FEED),cellList);
-        addCell(preyNumber,()->new Prey(Constant.TIME_TO_REPRODUCE),cellList);
-        addCell(obstaclesNumber, Obstacle::new,cellList);
-        addCell(defaultCellsNumber, Cell::new,cellList);
-        Collections.shuffle(cellList);
-        IntStream.range(0, totalCells).forEach(i -> cellList.get(i).setOceanCoordinate(new Point(i % colNum, i / colNum)));
-        this.cells = ListUtils.partition(cellList, colNum);
-
+        this.predatorNumber = predatorNumber;
+        this.preyNumber = preyNumber;
+        this.obstaclesNumber = obstaclesNumber;
+        this.rowNum = rowNum;
+        this.colNum = colNum;
         LOGGER.info("CellGroup is created. Predators number : {}, prey's number : {}, obstacles' number : {}",predatorNumber,preyNumber,obstaclesNumber);
     }
+     public void initCellGroup(){
+         int totalCells = rowNum * colNum;
+         int defaultCellsNumber = totalCells - (predatorNumber + preyNumber + obstaclesNumber);
+         List<Cell> cellList = new ArrayList<>(totalCells);
+         addCell(predatorNumber,()->new Predator(Constant.TIME_TO_REPRODUCE, Constant.TIME_TO_FEED),cellList);
+         addCell(preyNumber,()->new Prey(Constant.TIME_TO_REPRODUCE),cellList);
+         addCell(obstaclesNumber, Obstacle::new,cellList);
+         addCell(defaultCellsNumber, Cell::new,cellList);
+         Collections.shuffle(cellList);
+         IntStream.range(0, totalCells).forEach(i -> cellList.get(i).setOceanCoordinate(new Point(i % colNum, i / colNum)));
+         this.cells = ListUtils.partition(cellList, colNum);
+
+     }
 
     public CellGroup(List<List<Cell>> cells) {
         this.cells = new ArrayList<>(cells);
@@ -80,6 +91,7 @@ public class CellGroup implements Validatable<CellGroup> {
             destroyCell(prevPoint);
             createPrey(prevPoint);
             prey.setTimeToReproduce(Constant.TIME_TO_REPRODUCE);
+            setPreyNumber(getPreyNumber()+1);
         }else {
             createCell(prevPoint);
         }
@@ -100,11 +112,13 @@ public class CellGroup implements Validatable<CellGroup> {
         if (predator.getTimeToFeed() == 0) {
             destroyCell(predator.getOceanCoordinate());
             createCell(predator.getOceanCoordinate());
+            setPredatorNumber(getPredatorNumber()-1);
         }
         if (predator.getTimeToReproduce() == 0 && predator.getTimeToFeed() != 0) {
             destroyCell(prevPoint);
             createPredator(prevPoint);
             predator.setTimeToReproduce(Constant.TIME_TO_REPRODUCE);
+            setPredatorNumber(getPredatorNumber()+1);
         }else {
             createCell(prevPoint);
         }
@@ -188,6 +202,46 @@ public class CellGroup implements Validatable<CellGroup> {
         prey.setOceanCoordinate(place);
         cells.get(place.getY()).set(place.getX(), prey);
 
+    }
+
+    public int getPredatorNumber() {
+        return predatorNumber;
+    }
+
+    public void setPredatorNumber(int predatorNumber) {
+        this.predatorNumber = predatorNumber;
+    }
+
+    public int getPreyNumber() {
+        return preyNumber;
+    }
+
+    public void setPreyNumber(int preyNumber) {
+        this.preyNumber = preyNumber;
+    }
+
+    public int getObstaclesNumber() {
+        return obstaclesNumber;
+    }
+
+    public void setObstaclesNumber(int obstaclesNumber) {
+        this.obstaclesNumber = obstaclesNumber;
+    }
+
+    public int getRowNum() {
+        return rowNum;
+    }
+
+    public void setRowNum(int rowNum) {
+        this.rowNum = rowNum;
+    }
+
+    public int getColNum() {
+        return colNum;
+    }
+
+    public void setColNum(int colNum) {
+        this.colNum = colNum;
     }
 
     public void destroyCell(Point place) {
