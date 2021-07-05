@@ -76,11 +76,12 @@ public class CellGroup implements Validatable<CellGroup> {
         if (pointTo == null) return;
         Point prevPoint = prey.getOceanCoordinate();
         moveCell(prey.getOceanCoordinate(), pointTo);
-        createCell(prevPoint);
         if (prey.getTimeToReproduce() == 0) {
             destroyCell(prevPoint);
             createPrey(prevPoint);
             prey.setTimeToReproduce(Constant.TIME_TO_REPRODUCE);
+        }else {
+            createCell(prevPoint);
         }
         prey.setMoveIsDone(true);
     }
@@ -92,7 +93,6 @@ public class CellGroup implements Validatable<CellGroup> {
         if (point == null) return;
         Point prevPoint = predator.getOceanCoordinate();
         moveCell(predator.getOceanCoordinate(), point.getKey());
-        createCell(prevPoint);
         predator.setTimeToFeed(predator.getTimeToFeed() - 1);
         if (point.getValue().equals(ConsoleRepresentation.PREY)) {
             predator.setTimeToFeed(Constant.TIME_TO_FEED);
@@ -105,6 +105,8 @@ public class CellGroup implements Validatable<CellGroup> {
             destroyCell(prevPoint);
             createPredator(prevPoint);
             predator.setTimeToReproduce(Constant.TIME_TO_REPRODUCE);
+        }else {
+            createCell(prevPoint);
         }
         predator.setMoveIsDone(true);
     }

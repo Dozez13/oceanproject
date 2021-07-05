@@ -54,8 +54,9 @@ public class Cell {
         StringBuilder builder = new StringBuilder();
         builder.append("Type of cell is ").append(getCellRepresentation().getRepresentation())
                 .append(System.lineSeparator()).
-                append("X : ").append(getOceanCoordinate().getX())
-                .append(" Y : ").append(getOceanCoordinate().getY());
+                append(getOceanCoordinate().toString())
+        .append("Is move done : ").append(isMoveIsDone())
+        ;
         return builder.toString();
     }
 }

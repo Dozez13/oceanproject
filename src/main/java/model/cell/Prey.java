@@ -49,7 +49,8 @@ public class Prey extends Cell {
                 .append(System.lineSeparator()).
                 append("X : ").append(getOceanCoordinate().getX())
                 .append(" Y : ").append(getOceanCoordinate().getY())
-        .append(" Time to reproduce is ").append(getTimeToReproduce());
+        .append(" Time to reproduce is ").append(getTimeToReproduce())
+                .append("Is move done : ").append(isMoveIsDone());
         return builder.toString();
     }
 

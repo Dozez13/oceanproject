@@ -51,7 +51,8 @@ public class Predator extends Prey {
                 append("X : ").append(getOceanCoordinate().getX())
                 .append(" Y : ").append(getOceanCoordinate().getY())
                 .append(" Time to reproduce is ").append(getTimeToReproduce())
-        .append(" Time to feed is ").append(getTimeToFeed());
+        .append(" Time to feed is ").append(getTimeToFeed())
+                .append("Is move done : ").append(isMoveIsDone());
         return builder.toString();
     }
 }

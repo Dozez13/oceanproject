@@ -4,13 +4,15 @@ package demo;
 import controller.OceanController;
 import exception.EntityException;
 import model.Ocean;
+import model.cell.Cell;
 import model.cell.CellGroup;
 import model.validator.CellGroupValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import view.OceanPrinter;
 
-
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Demo {
@@ -27,8 +29,5 @@ public class Demo {
         OceanPrinter oceanPrinter = new OceanPrinter();
         OceanController oceanController = new OceanController(ocean,oceanPrinter,20);
         oceanController.start();
-
-
-
     }
 }
