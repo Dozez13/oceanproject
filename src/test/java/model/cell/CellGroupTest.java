@@ -7,7 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,7 +28,7 @@ class CellGroupTest {
     @Test
     void setMoveFalse() {
         cellGroup.setMoveFalse();
-        assert(cellGroup.getCells().stream().allMatch(cellList->cellList.stream().noneMatch(Cell::isMoveIsDone)));
+        assertTrue(cellGroup.getCells().stream().allMatch(cellList->cellList.stream().noneMatch(Cell::isMoveIsDone)));
     }
 
     @Test
@@ -40,7 +41,7 @@ class CellGroupTest {
                 }
             }
         }
-        assertEquals(ConsoleRepresentation.PREY,cellGroup.getCellTypeByPoint(point));
+        assertEquals(ConsoleRepresentation.PREY,cellGroup.getCellTypeByPoint(Objects.requireNonNull(point)));
     }
 
 }
