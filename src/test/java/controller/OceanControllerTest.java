@@ -26,8 +26,14 @@ class OceanControllerTest {
     }
      @BeforeEach
      public void init(){
-         CellGroup cellGroup = new CellGroup(1, 2, 3, 4, 10);
-         cellGroup.initCellGroup();
+         CellGroup cellGroup = new CellGroup.Builder()
+                 .setPredatorNumber(25)
+                 .setPreyNumber(150)
+                 .setObstaclesNumber(75)
+                 .setRowNum(25)
+                 .setColNum(70)
+                 .build();
+         cellGroup.populateCellList();
          ocean = new Ocean(cellGroup);
          OceanPrinter oceanPrinter = new OceanPrinter();
          oceanController = new OceanController(ocean, oceanPrinter,1000);

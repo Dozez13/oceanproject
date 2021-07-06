@@ -27,8 +27,14 @@ class OceanPrinterTest {
     @BeforeEach
     public void init(){
         oceanPrinter = new OceanPrinter();
-        CellGroup cellGroup = new CellGroup(2, 5, 10, 2, 15);
-        cellGroup.initCellGroup();
+        CellGroup cellGroup = new CellGroup.Builder()
+                .setPredatorNumber(25)
+                .setPreyNumber(150)
+                .setObstaclesNumber(75)
+                .setRowNum(25)
+                .setColNum(70)
+                .build();
+        cellGroup.populateCellList();
         ocean = new Ocean(cellGroup);
     }
     @Test

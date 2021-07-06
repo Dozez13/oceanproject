@@ -29,16 +29,70 @@ public class CellGroup implements Validatable<CellGroup> {
     private int rowNum;
     private int colNum;
     private Validator<CellGroup> cellGroupValidator;
+    public static class Builder{
+        private int predatorNumber;
+        private int preyNumber;
+        private int obstaclesNumber;
+        private int rowNum;
+        private int colNum;
 
-    public CellGroup(int predatorNumber, int preyNumber, int obstaclesNumber, int rowNum, int colNum) {
-        this.predatorNumber = predatorNumber;
-        this.preyNumber = preyNumber;
-        this.obstaclesNumber = obstaclesNumber;
-        this.rowNum = rowNum;
-        this.colNum = colNum;
+        public int getPredatorNumber() {
+            return predatorNumber;
+        }
+
+        public Builder setPredatorNumber(int predatorNumber) {
+            this.predatorNumber = predatorNumber;
+            return this;
+        }
+
+        public int getPreyNumber() {
+            return preyNumber;
+        }
+
+        public Builder setPreyNumber(int preyNumber) {
+            this.preyNumber = preyNumber;
+            return this;
+        }
+
+        public int getObstaclesNumber() {
+            return obstaclesNumber;
+        }
+
+        public Builder setObstaclesNumber(int obstaclesNumber) {
+            this.obstaclesNumber = obstaclesNumber;
+            return this;
+        }
+
+        public int getRowNum() {
+            return rowNum;
+        }
+
+        public Builder setRowNum(int rowNum) {
+            this.rowNum = rowNum;
+            return this;
+        }
+
+        public int getColNum() {
+            return colNum;
+        }
+
+        public Builder setColNum(int colNum) {
+            this.colNum = colNum;
+            return this;
+        }
+        public CellGroup build(){
+            return new CellGroup(this);
+        }
+    }
+    public CellGroup(Builder builder){
+        this.predatorNumber = builder.getPredatorNumber();
+        this.preyNumber = builder.getPreyNumber();
+        this.obstaclesNumber = builder.getObstaclesNumber();
+        this.rowNum = builder.getRowNum();
+        this.colNum = builder.getColNum();
         LOGGER.info("CellGroup is created. Predators number : {}, prey's number : {}, obstacles' number : {}",predatorNumber,preyNumber,obstaclesNumber);
     }
-     public void initCellGroup(){
+     public void populateCellList(){
          int totalCells = rowNum * colNum;
          int defaultCellsNumber = totalCells - (predatorNumber + preyNumber + obstaclesNumber);
          List<Cell> cellList = new ArrayList<>(totalCells);
@@ -99,20 +153,22 @@ public class CellGroup implements Validatable<CellGroup> {
 
     public void processCell(Predator predator) {
         if (predator.isMoveIsDone()) return;
+        predator.setTimeToFeed(predator.getTimeToFeed() - 1);
+        if (predator.getTimeToFeed() == 0) {
+            destroyCell(predator.getOceanCoordinate());
+            createCell(predator.getOceanCoordinate());
+            setPredatorNumber(getPredatorNumber()-1);
+            return;
+        }
         predator.setTimeToReproduce(predator.getTimeToReproduce() - 1);
         Map.Entry<Point, ConsoleRepresentation> point = findPoint(predator);
         if (point == null) return;
         Point prevPoint = predator.getOceanCoordinate();
         moveCell(predator.getOceanCoordinate(), point.getKey());
-        predator.setTimeToFeed(predator.getTimeToFeed() - 1);
         if (point.getValue().equals(ConsoleRepresentation.PREY)) {
             predator.setTimeToFeed(Constant.TIME_TO_FEED);
         }
-        if (predator.getTimeToFeed() == 0) {
-            destroyCell(predator.getOceanCoordinate());
-            createCell(predator.getOceanCoordinate());
-            setPredatorNumber(getPredatorNumber()-1);
-        }
+
         if (predator.getTimeToReproduce() == 0 && predator.getTimeToFeed() != 0) {
             destroyCell(prevPoint);
             createPredator(prevPoint);

@@ -16,8 +16,14 @@ class CellGroupTest {
     private CellGroup cellGroup;
     @BeforeEach
     public void init(){
-        cellGroup = new CellGroup(2,3,5,5,2);
-        cellGroup.initCellGroup();
+        cellGroup = new CellGroup.Builder()
+                .setPredatorNumber(25)
+                .setPreyNumber(150)
+                .setObstaclesNumber(75)
+                .setRowNum(25)
+                .setColNum(70)
+                .build();
+        cellGroup.populateCellList();
     }
     @Test
     void addCell() {

@@ -1,6 +1,6 @@
 package model.validator;
 
-import exception.BaseCellGroupException;
+
 import model.cell.CellGroup;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,14 +14,26 @@ class CellGroupValidatorTest {
        cellGroupValidator = new CellGroupValidator();
    }
     @Test
-    void validateWithoutException() {
-       CellGroup cellGroup = new CellGroup(1,2,3,5,10);
-       assertDoesNotThrow(()->cellGroupValidator.validate(cellGroup));
+    void validateTrue() {
+       CellGroup cellGroup = new CellGroup.Builder()
+               .setPredatorNumber(25)
+               .setPreyNumber(150)
+               .setObstaclesNumber(75)
+               .setRowNum(25)
+               .setColNum(70)
+               .build();
+       assertTrue(cellGroupValidator.validate(cellGroup));
     }
     @Test
-    void validateThrowsMatrixSizeException(){
-        CellGroup cellGroup = new CellGroup(1,2,3,26,10);
-        assertThrows(BaseCellGroupException.class,()->cellGroupValidator.validate(cellGroup));
+    void validateFalse(){
+        CellGroup cellGroup = new CellGroup.Builder()
+                .setPredatorNumber(25)
+                .setPreyNumber(150)
+                .setObstaclesNumber(75)
+                .setRowNum(26)
+                .setColNum(70)
+                .build();
+        assertFalse(cellGroupValidator.validate(cellGroup));
     }
 
 

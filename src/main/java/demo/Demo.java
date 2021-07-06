@@ -2,7 +2,6 @@ package demo;
 
 
 import controller.OceanController;
-import exception.ApplicationException;
 import model.Ocean;
 import model.cell.CellGroup;
 import model.validator.CellGroupValidator;
@@ -15,20 +14,19 @@ import view.OceanPrinter;
 public class Demo {
     private static final Logger LOGGER = LogManager.getLogger(Demo.class);
     public static void main(String[] args){
-        CellGroup cellGroup = new CellGroup(23, 150, 75, 25, 70);
+        CellGroup cellGroup = new CellGroup.Builder()
+                .setPredatorNumber(25)
+                .setPreyNumber(150)
+                .setObstaclesNumber(75)
+                .setRowNum(25)
+                .setColNum(70)
+                .build();
         cellGroup.setValidator(new CellGroupValidator());
-//        try {
-//            cellGroup.validate();
-//        } catch (EntityException e) {
-//          LOGGER.error(e.getMessage());
-//          throw new ApplicationException(e.getMessage());
-//        }
-
             if(!cellGroup.validate()){
                 String message = "Matrix invalid parameters";
-          LOGGER.error(message);
+                LOGGER.error(message);
         }else {
-                cellGroup.initCellGroup();
+                cellGroup.populateCellList();
                 Ocean ocean = new Ocean(cellGroup);
                 OceanPrinter oceanPrinter = new OceanPrinter();
                 OceanController oceanController = new OceanController(ocean,oceanPrinter,100);
