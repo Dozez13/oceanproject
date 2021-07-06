@@ -3,7 +3,6 @@ package model.cell;
 
 
 import constant.Constant;
-import exception.EntityException;
 import model.ConsoleRepresentation;
 import model.point.Point;
 import model.validator.Validatable;
@@ -262,7 +261,7 @@ public class CellGroup implements Validatable<CellGroup> {
     }
 
     @Override
-    public void validate() throws EntityException {
-        this.cellGroupValidator.validate(this);
+    public boolean validate(){
+       return this.cellGroupValidator.validate(this);
     }
 }

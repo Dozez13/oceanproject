@@ -17,7 +17,11 @@ Z
 *src/test/java/model/cell/ObstacleTest.java,2\5\2521ad47ef51655eab167c91f2e7deb1af21589d
 V
 &src/test/java/model/cell/CellTest.java,9\5\959fa171f9fc4cf53f9796ba3de035d08d8335dd
-h
-8src/main/java/exception/CellGroupExceptionContainer.java,0\e\0ee64cc22f1c004ab21d4d9a2c88e3349e6a6b0d
 V
-&src/main/java/model/cell/Obstacle.java,6\8\68fb18c55990dd7955605ae7cf9263c686f4a88d
+&src/main/java/model/cell/Predator.java,e\8\e825d4148d5ed663c86fa7256320b6b5f592d803
+R
+"src/main/java/model/cell/Prey.java,d\c\dc6a6bbf11000506677cd291ef61c821be6d50da
+N
+src/main/java/model/Ocean.java,f\f\ff64b7f4783d06658a2f4b7a9ae4b6b66512fd40
+T
+$src/main/java/model/point/Point.java,e\2\e26d77abfc12e9129aa23da172479a58756ba09c
