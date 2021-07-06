@@ -194,10 +194,10 @@ public class CellGroup implements Validatable<CellGroup> {
         if (prey.getOceanCoordinate().getY() + 1 < cells.size()) {
             points.add(new Point(prey.getOceanCoordinate().getX(), prey.getOceanCoordinate().getY() + 1));
         }
-        points.removeIf(point -> !getCellTypeByPoint(point).equals(ConsoleRepresentation.CELL));
         if (points.isEmpty()) {
             return null;
         }
+        points.removeIf(point -> !getCellTypeByPoint(point).equals(ConsoleRepresentation.CELL));
         return points.stream().findAny().orElse(null);
 
     }
