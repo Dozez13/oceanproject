@@ -32,6 +32,5 @@ public class Demo {
                 OceanController oceanController = new OceanController(ocean,oceanPrinter,100);
                 oceanController.start();
             }
-
     }
 }

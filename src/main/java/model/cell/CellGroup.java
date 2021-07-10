@@ -35,7 +35,6 @@ public class CellGroup implements Validatable<CellGroup> {
         private int obstaclesNumber;
         private int rowNum;
         private int colNum;
-
         public int getPredatorNumber() {
             return predatorNumber;
         }
@@ -80,6 +79,7 @@ public class CellGroup implements Validatable<CellGroup> {
             this.colNum = colNum;
             return this;
         }
+
         public CellGroup build(){
             return new CellGroup(this);
         }
