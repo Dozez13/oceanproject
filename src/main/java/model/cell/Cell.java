@@ -53,7 +53,7 @@ public class Cell implements BaseCell {
 
     @Override
     public void process() {
-     throw new UnsupportedOperationException();
+
     }
     @Override
     public boolean equals(Object o) {

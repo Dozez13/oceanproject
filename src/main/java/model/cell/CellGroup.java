@@ -117,68 +117,11 @@ public class CellGroup implements Validatable<CellGroup> {
         cells.forEach(cellList->cellList.forEach(cell -> cell.setMoveIsDone(false)));
         }
     public void processCells() {
-        for (List<Cell> cell : cells) {
-            for (Cell value : cell) {
-                if (value.getCellRepresentation().equals(ConsoleRepresentation.PREY)) {
-                    LOGGER.info("Prey before processing : {}",value);
-                    processCell((Prey) value);
-                    LOGGER.info("Prey after processing : {}",value);
-                }
-                if (value.getCellRepresentation().equals(ConsoleRepresentation.PREDATOR)) {
-                    LOGGER.info("Predator before processing : {}",value);
-                    processCell((Predator) value);
-                    LOGGER.info("Predator after processing : {}",value);
-                }
-            }
-        }
-    }
-
-    public void processCell(Prey prey) {
-        if (prey.isMoveIsDone()) return;
-        prey.setTimeToReproduce(prey.getTimeToReproduce() - 1);
-        Point pointTo = findPoint(prey);
-        if (pointTo == null) return;
-        Point prevPoint = prey.getOceanCoordinate();
-        moveCell(prey.getOceanCoordinate(), pointTo);
-        if (prey.getTimeToReproduce() == 0) {
-            destroyCell(prevPoint);
-            createPrey(prevPoint);
-            prey.setTimeToReproduce(Constant.TIME_TO_REPRODUCE);
-            setPreyNumber(getPreyNumber()+1);
-        }else {
-            createCell(prevPoint);
-        }
-        prey.setMoveIsDone(true);
-    }
-
-    public void processCell(Predator predator) {
-        if (predator.isMoveIsDone()) return;
-        predator.setTimeToFeed(predator.getTimeToFeed() - 1);
-        if (predator.getTimeToFeed() == 0) {
-            destroyCell(predator.getOceanCoordinate());
-            createCell(predator.getOceanCoordinate());
-            setPredatorNumber(getPredatorNumber()-1);
-        }else {
-            predator.setTimeToReproduce(predator.getTimeToReproduce() - 1);
-            Map.Entry<Point, ConsoleRepresentation> point = findPoint(predator);
-            if (point == null) return;
-            Point prevPoint = predator.getOceanCoordinate();
-            moveCell(predator.getOceanCoordinate(), point.getKey());
-            if (point.getValue().equals(ConsoleRepresentation.PREY)) {
-                predator.setTimeToFeed(Constant.TIME_TO_FEED);
-                setPreyNumber(getPreyNumber()-1);
-            }
-
-            if (predator.getTimeToReproduce() == 0 && predator.getTimeToFeed() != 0) {
-                destroyCell(prevPoint);
-                createPredator(prevPoint);
-                predator.setTimeToReproduce(Constant.TIME_TO_REPRODUCE);
-                setPredatorNumber(getPredatorNumber()+1);
-            }else {
-                createCell(prevPoint);
-            }
-        }
-        predator.setMoveIsDone(true);
+        cells.forEach(cellList->cellList.forEach(cell->{
+            LOGGER.info("Cell before processing : {}",cell);
+            cell.process();
+            LOGGER.info("Cell after processing : {}",cell);
+        }));
     }
 
     public Point findPoint(Prey prey) {
@@ -323,5 +266,14 @@ public class CellGroup implements Validatable<CellGroup> {
     @Override
     public boolean validate(){
        return this.cellGroupValidator.validate(this);
+    }
+    @Override
+    public String toString(){
+        StringBuilder result = new StringBuilder(getCells().size());
+        getCells().forEach(el -> {
+            el.forEach(eld->result.append(eld.getCellRepresentation().getRepresentation()));
+            result.append(System.lineSeparator());
+        });
+        return result.toString();
     }
 }
