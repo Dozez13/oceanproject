@@ -1,6 +1,6 @@
 package model.cell;
 
-import constant.Constant;
+
 import model.ConsoleRepresentation;
 import model.point.Point;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +12,7 @@ class PredatorTest {
     private Predator predator;
     @BeforeEach
     public void init(){
-        predator = new Predator(Constant.TIME_TO_REPRODUCE,Constant.TIME_TO_FEED);
+        predator = new Predator();
     }
     @Test
     void getCellRepresentation() {
@@ -39,7 +39,7 @@ class PredatorTest {
         Point point1 = new Point(1,2);
         predator.setOceanCoordinate(point);
         predator.setMoveIsDone(true);
-        Predator predator1 = new Predator(Constant.TIME_TO_REPRODUCE,Constant.TIME_TO_FEED);
+        Predator predator1 = new Predator();
         predator1.setOceanCoordinate(point1);
         predator1.setMoveIsDone(true);
         assertEquals(predator1,predator);
@@ -51,7 +51,7 @@ class PredatorTest {
         Point point1 = new Point(1,2);
         predator.setOceanCoordinate(point);
         predator.setMoveIsDone(true);
-        Predator predator1 = new Predator(Constant.TIME_TO_REPRODUCE,Constant.TIME_TO_FEED);
+        Predator predator1 = new Predator();
         predator1.setOceanCoordinate(point1);
         predator1.setMoveIsDone(true);
         assertEquals(predator1.hashCode(),predator.hashCode());

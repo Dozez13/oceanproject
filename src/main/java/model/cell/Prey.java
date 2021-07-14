@@ -1,5 +1,6 @@
 package model.cell;
 
+import constant.Constant;
 import model.ConsoleRepresentation;
 import model.point.Point;
 
@@ -8,11 +9,15 @@ import java.util.Objects;
 public class Prey extends Cell {
     private static final ConsoleRepresentation CELL_REPRESENTATION = ConsoleRepresentation.PREY;
     private int timeToReproduce;
-    public Prey(int timeToReproduce){
-        this(new Point(0,0),timeToReproduce);
+    public Prey(){
+        super();
+        this.timeToReproduce = Constant.TIME_TO_REPRODUCE;
     }
-    public Prey(Point oceanCoordinate, int timeToReproduce) {
-        super(oceanCoordinate);
+    public Prey(CellGroup cellGroup,int timeToReproduce){
+        this(new Point(0,0),cellGroup,timeToReproduce);
+    }
+    public Prey(Point oceanCoordinate,CellGroup cellGroup, int timeToReproduce) {
+        super(oceanCoordinate,cellGroup);
         this.timeToReproduce = timeToReproduce;
     }
     @Override
@@ -28,6 +33,10 @@ public class Prey extends Cell {
         this.timeToReproduce = timeToReproduce;
     }
 
+    @Override
+    public void process(){
+
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

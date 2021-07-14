@@ -29,7 +29,7 @@ public class Demo {
                 cellGroup.populateCellList();
                 Ocean ocean = new Ocean(cellGroup);
                 OceanPrinter oceanPrinter = new OceanPrinter();
-                OceanController oceanController = new OceanController(ocean,oceanPrinter,100);
+                OceanController oceanController = new OceanController(ocean,oceanPrinter,1000);
                 oceanController.start();
             }
     }

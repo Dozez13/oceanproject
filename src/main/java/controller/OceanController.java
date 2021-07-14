@@ -23,6 +23,9 @@ public class OceanController {
     public void start(){
         LOGGER.info("Simulation is started");
         for(int i=0;i<iterationNumber;i++){
+               if(ocean.getCellGroup().getPreyNumber()-ocean.getCellGroup().getObstaclesNumber()==ocean.getCellGroup().getRowNum()*ocean.getCellGroup().getColNum()||
+                    ocean.getCellGroup().getPredatorNumber()-ocean.getCellGroup().getObstaclesNumber()==ocean.getCellGroup().getRowNum()*ocean.getCellGroup().getColNum()||
+            ocean.getCellGroup().getPreyNumber()==0||ocean.getCellGroup().getPredatorNumber()==0)return;
             display();
             ocean.processCell();
             System.out.println(System.lineSeparator()+System.lineSeparator());

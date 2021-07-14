@@ -28,7 +28,7 @@ class CellGroupTest {
     @Test
     void addCell() {
         List<Cell> cells = new ArrayList<>(5);
-        cellGroup.addCell(5,Cell::new,cells);
+        cellGroup.addCell(5, Cell::new,cells);
         assertEquals(5,cells.size());
     }
 

@@ -96,10 +96,10 @@ public class CellGroup implements Validatable<CellGroup> {
          int totalCells = rowNum * colNum;
          int defaultCellsNumber = totalCells - (predatorNumber + preyNumber + obstaclesNumber);
          List<Cell> cellList = new ArrayList<>(totalCells);
-         addCell(predatorNumber,()->new Predator(Constant.TIME_TO_REPRODUCE, Constant.TIME_TO_FEED),cellList);
-         addCell(preyNumber,()->new Prey(Constant.TIME_TO_REPRODUCE),cellList);
-         addCell(obstaclesNumber, Obstacle::new,cellList);
-         addCell(defaultCellsNumber, Cell::new,cellList);
+         addCell(predatorNumber,()->new Predator(this,Constant.TIME_TO_REPRODUCE, Constant.TIME_TO_FEED),cellList);
+         addCell(preyNumber,()->new Prey(this,Constant.TIME_TO_REPRODUCE),cellList);
+         addCell(obstaclesNumber, ()->new Obstacle(this),cellList);
+         addCell(defaultCellsNumber, ()->new Cell(this),cellList);
          Collections.shuffle(cellList);
          IntStream.range(0, totalCells).forEach(i -> cellList.get(i).setOceanCoordinate(new Point(i % colNum, i / colNum)));
          this.cells = ListUtils.partition(cellList, colNum);
@@ -166,6 +166,7 @@ public class CellGroup implements Validatable<CellGroup> {
             moveCell(predator.getOceanCoordinate(), point.getKey());
             if (point.getValue().equals(ConsoleRepresentation.PREY)) {
                 predator.setTimeToFeed(Constant.TIME_TO_FEED);
+                setPreyNumber(getPreyNumber()-1);
             }
 
             if (predator.getTimeToReproduce() == 0 && predator.getTimeToFeed() != 0) {
@@ -241,19 +242,19 @@ public class CellGroup implements Validatable<CellGroup> {
     }
 
     public void createCell(Point place) {
-        Cell cell = new Cell();
+        Cell cell = new Cell(this);
         cell.setOceanCoordinate(place);
         cells.get(place.getY()).set(place.getX(), cell);
     }
 
     public void createPredator(Point place) {
-        Predator predator = new Predator(Constant.TIME_TO_REPRODUCE, Constant.TIME_TO_FEED);
+        Predator predator = new Predator(this,Constant.TIME_TO_REPRODUCE, Constant.TIME_TO_FEED);
         predator.setOceanCoordinate(place);
         cells.get(place.getY()).set(place.getX(), predator);
     }
 
     public void createPrey(Point place) {
-        Prey prey = new Prey(Constant.TIME_TO_REPRODUCE);
+        Prey prey = new Prey(this,Constant.TIME_TO_REPRODUCE);
         prey.setOceanCoordinate(place);
         cells.get(place.getY()).set(place.getX(), prey);
 
@@ -311,6 +312,9 @@ public class CellGroup implements Validatable<CellGroup> {
         this.cells = cells;
     }
 
+    public int getTotalCells(){
+        return getRowNum()*getColNum();
+    }
     @Override
     public void setValidator(Validator<CellGroup> validator) {
         this.cellGroupValidator = validator;

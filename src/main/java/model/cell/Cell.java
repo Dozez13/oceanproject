@@ -6,15 +6,26 @@ import model.point.Point;
 
 import java.util.Objects;
 
-public class Cell {
+public class Cell implements BaseCell {
+    private final CellGroup cellGroup;
     private Point oceanCoordinate;
     private static final ConsoleRepresentation CELL_REPRESENTATION = ConsoleRepresentation.CELL;
     private boolean moveIsDone = false;
     public Cell(){
-        this(new Point(0,0));
+        this(new Point(0, 0), new CellGroup.Builder()
+                .setPredatorNumber(25)
+                .setPreyNumber(150)
+                .setObstaclesNumber(75)
+                .setRowNum(25)
+                .setColNum(70)
+                .build());
     }
-    public Cell(Point oceanCoordinate) {
+    public Cell(CellGroup cellGroup){
+        this(new Point(0, 0), cellGroup);
+    }
+    public Cell(Point oceanCoordinate,CellGroup cellGroup) {
         this.oceanCoordinate = oceanCoordinate;
+        this.cellGroup = cellGroup;
     }
 
     public boolean isMoveIsDone() {
@@ -33,10 +44,17 @@ public class Cell {
         this.oceanCoordinate = oceanCoordinate;
     }
 
+    public CellGroup getCellGroup(){
+        return cellGroup;
+    }
     public ConsoleRepresentation getCellRepresentation() {
         return CELL_REPRESENTATION;
     }
 
+    @Override
+    public void process() {
+     throw new UnsupportedOperationException();
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -59,4 +77,6 @@ public class Cell {
         ;
         return builder.toString();
     }
+
+
 }
