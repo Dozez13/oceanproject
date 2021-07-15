@@ -3,7 +3,7 @@ package view;
 import model.Ocean;
 import model.cell.*;
 
-public class OceanPrinter {
+public class OceanPrinter implements OceanView{
 
     public void show(Ocean ocean) {
         CellGroup cellGroup = ocean.getCellGroup();

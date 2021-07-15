@@ -22,5 +22,7 @@ public class Constant {
     }
     public static final int TIME_TO_FEED = 6;
     public static final int TIME_TO_REPRODUCE = 6;
+    public static final int SIMULATION_HEIGHT=1000;
+    public static final int SIMULATION_WIDTH=1000;
 
 }

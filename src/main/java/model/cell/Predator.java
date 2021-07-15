@@ -2,13 +2,14 @@ package model.cell;
 
 import constant.Constant;
 import model.ConsoleRepresentation;
+
+import model.DesktopRepresentation;
 import model.point.Point;
 
 import java.util.Map;
 import java.util.Objects;
 
 public class Predator extends Prey {
-    private static final ConsoleRepresentation CELL_REPRESENTATION = ConsoleRepresentation.PREDATOR;
     private int timeToFeed;
     public Predator(){
         super();
@@ -23,8 +24,12 @@ public class Predator extends Prey {
     }
 
     @Override
+    public DesktopRepresentation getDesktopRepresentation(){
+        return DesktopRepresentation.PREDATOR;
+    }
+    @Override
     public ConsoleRepresentation getCellConsoleRepresentation() {
-        return CELL_REPRESENTATION;
+        return ConsoleRepresentation.PREDATOR;
     }
     public void setTimeToFeed(int timeToFeed) {
         if(this.timeToFeed==0)return;

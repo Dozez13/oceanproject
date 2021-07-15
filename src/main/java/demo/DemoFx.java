@@ -1,20 +1,21 @@
 package demo;
 
 import constant.Constant;
+import controller.OceanController;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.DesktopRepresentation;
+import model.Ocean;
+import model.cell.CellGroup;
+import view.OceanDesktopView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +37,7 @@ public class DemoFx extends Application {
 
 
         Slider sliderColumnNumber = new Slider(20, 70, 5);
-        Slider sliderRowNumber = new Slider(35, 25, 5);
+        Slider sliderRowNumber = new Slider(5, 25, 5);
         Slider sliderPredatorNumber = new Slider();
         Slider sliderPreyNumber = new Slider();
         Slider sliderObstaclesNumber = new Slider();
@@ -57,26 +58,21 @@ public class DemoFx extends Application {
         startSimulationButton.setAlignment(Pos.CENTER_RIGHT);
 
         startSimulationButton.setOnAction((event -> {
-            Stage simulationStage = new Stage();
-            GridPane gridPane1 = new GridPane();
-            for(int i=0;i<20;i++){
-                gridPane1.getRowConstraints().add(new RowConstraints(50));
-                for(int j=0;j<20;j++){
-                    Image image = new Image("predator.png");
-                    ImageView imageView = new ImageView(image);
-                    imageView.getStyleClass().add("img-view");
-                    Pane pane = new Pane();
-                    pane.getChildren().add(imageView);
-                    pane.getStyleClass().add("myBorder");
-                    gridPane1.getColumnConstraints().add(new ColumnConstraints(50));
-                    gridPane1.add(pane,i,j);
-                }
-
-            }
-            gridPane1.getStylesheets().add("style.css");
-            simulationStage.initModality(Modality.APPLICATION_MODAL);
-            simulationStage.setScene(new Scene(gridPane1,1000,1000));
+           Stage simulationStage = new Stage();
+           Scene defaultScene = new Scene(new Pane(),400,500);
+           simulationStage.initModality(Modality.APPLICATION_MODAL);
+           simulationStage.setScene(defaultScene);
             simulationStage.show();
+            CellGroup cellGroup = new CellGroup.Builder().setColNum((int) sliderColumnNumber.getValue()).setRowNum((int) sliderRowNumber.getValue())
+                    .setObstaclesNumber((int) sliderObstaclesNumber.getValue()).setPreyNumber((int) sliderPreyNumber.getValue()).setPredatorNumber((int) sliderPredatorNumber.getValue())
+                    .build();
+            cellGroup.populateCellList();
+            Ocean ocean = new Ocean(cellGroup);
+            OceanDesktopView desktopView = new OceanDesktopView(simulationStage);
+            OceanController oceanController = new OceanController(ocean,desktopView,(int)sliderIterationNumber.getValue());
+            oceanController.start();
+
+
         }));
 
         List<Slider> sliders = new ArrayList<>(6);

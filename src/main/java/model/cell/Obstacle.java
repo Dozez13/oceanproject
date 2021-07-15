@@ -1,10 +1,11 @@
 package model.cell;
 
 import model.ConsoleRepresentation;
+
+import model.DesktopRepresentation;
 import model.point.Point;
 
 public class Obstacle extends Cell {
-    private static final ConsoleRepresentation CELL_REPRESENTATION = ConsoleRepresentation.OBSTACLE;
     public Obstacle(){
         super();
     }
@@ -15,7 +16,11 @@ public class Obstacle extends Cell {
         super(oceanCoordinate,cellGroup);
     }
     @Override
+    public DesktopRepresentation getDesktopRepresentation(){
+        return DesktopRepresentation.OBSTACLES;
+    }
+    @Override
     public ConsoleRepresentation getCellConsoleRepresentation() {
-        return CELL_REPRESENTATION;
+        return ConsoleRepresentation.OBSTACLE;
     }
 }

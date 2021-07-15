@@ -2,12 +2,14 @@ package model.cell;
 
 import constant.Constant;
 import model.ConsoleRepresentation;
+
+import model.DesktopRepresentation;
 import model.point.Point;
 
 import java.util.Objects;
 
 public class Prey extends Cell {
-    private static final ConsoleRepresentation CELL_REPRESENTATION = ConsoleRepresentation.PREY;
+
     private int timeToReproduce;
     public Prey(){
         super();
@@ -21,8 +23,12 @@ public class Prey extends Cell {
         this.timeToReproduce = timeToReproduce;
     }
     @Override
+    public DesktopRepresentation getDesktopRepresentation(){
+        return DesktopRepresentation.PREY;
+    }
+    @Override
     public ConsoleRepresentation getCellConsoleRepresentation() {
-        return CELL_REPRESENTATION;
+        return ConsoleRepresentation.PREY;
     }
     public int getTimeToReproduce() {
         return timeToReproduce;

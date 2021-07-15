@@ -2,6 +2,8 @@ package model.cell;
 
 
 import model.ConsoleRepresentation;
+
+import model.DesktopRepresentation;
 import model.point.Point;
 
 import java.util.Objects;
@@ -9,7 +11,6 @@ import java.util.Objects;
 public class Cell implements BaseCell {
     private final CellGroup cellGroup;
     private Point oceanCoordinate;
-    private static final ConsoleRepresentation CELL_REPRESENTATION = ConsoleRepresentation.CELL;
     private boolean moveIsDone = false;
     public Cell(){
         this(new Point(0, 0), new CellGroup.Builder()
@@ -47,8 +48,12 @@ public class Cell implements BaseCell {
     public CellGroup getCellGroup(){
         return cellGroup;
     }
+
+    public DesktopRepresentation getDesktopRepresentation(){
+        return DesktopRepresentation.CELL;
+    }
     public ConsoleRepresentation getCellConsoleRepresentation() {
-        return CELL_REPRESENTATION;
+        return ConsoleRepresentation.CELL;
     }
 
     @Override
