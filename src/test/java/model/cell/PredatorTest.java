@@ -16,7 +16,7 @@ class PredatorTest {
     }
     @Test
     void getCellRepresentation() {
-        assertEquals(ConsoleRepresentation.PREDATOR,predator.getCellRepresentation());
+        assertEquals(ConsoleRepresentation.PREDATOR,predator.getCellConsoleRepresentation());
     }
 
     @Test

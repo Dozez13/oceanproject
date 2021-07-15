@@ -1,0 +1,42 @@
+* {
+    -fx-baseColor: rgba(197, 184, 234, 0.5);
+}
+.slider .track{
+    -fx-background-color: rgba(103, 212, 202, 0.67);
+    -fx-pref-height:20;
+
+}
+.slider{
+    -fx-pref-width: 400;
+}
+
+
+.slider .thumb {
+    -fx-pref-height: 20;
+    -fx-pref-width: 20;
+}
+
+.label{
+    -fx-text-fill: #0c1928;
+    -fx-font-size: 20px;
+    -fx-font-family: Century;
+
+}
+.root{
+    -fx-background-color: -fx-baseColor;
+}
+.button{
+    -fx-text-fill: #0c1928;
+    -fx-font-size: 20px;
+    -fx-font-family: Century;
+    -fx-background-color: -fx-baseColor;
+}
+
+.myBorder{
+    -fx-border-color: black;
+    -fx-border-width: 3px;
+    -fx-border-style: solid;
+}
+.img-view{
+
+}

@@ -43,7 +43,7 @@ class CellGroupTest {
         Point point = null;
         for(List<Cell> cellList:cellGroup.getCells()){
             for(Cell cell:cellList){
-                if(cell.getCellRepresentation().equals(ConsoleRepresentation.PREY)){
+                if(cell.getCellConsoleRepresentation().equals(ConsoleRepresentation.PREY)){
                     point = cell.getOceanCoordinate();
                 }
             }

@@ -21,7 +21,7 @@ public class Prey extends Cell {
         this.timeToReproduce = timeToReproduce;
     }
     @Override
-    public ConsoleRepresentation getCellRepresentation() {
+    public ConsoleRepresentation getCellConsoleRepresentation() {
         return CELL_REPRESENTATION;
     }
     public int getTimeToReproduce() {
@@ -68,7 +68,7 @@ public class Prey extends Cell {
     @Override
     public String toString(){
         StringBuilder builder = new StringBuilder();
-        builder.append("Type of cell is ").append(getCellRepresentation().getRepresentation())
+        builder.append("Type of cell is ").append(getCellConsoleRepresentation().getRepresentation())
                 .append(System.lineSeparator()).
                 append("X : ").append(getOceanCoordinate().getX())
                 .append(" Y : ").append(getOceanCoordinate().getY())

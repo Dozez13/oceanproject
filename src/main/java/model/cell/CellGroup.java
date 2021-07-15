@@ -147,7 +147,7 @@ public class CellGroup implements Validatable<CellGroup> {
     }
 
     public ConsoleRepresentation getCellTypeByPoint(Point point) {
-        return cells.get(point.getY()).get(point.getX()).getCellRepresentation();
+        return cells.get(point.getY()).get(point.getX()).getCellConsoleRepresentation();
 
     }
 
@@ -271,7 +271,7 @@ public class CellGroup implements Validatable<CellGroup> {
     public String toString(){
         StringBuilder result = new StringBuilder(getCells().size());
         getCells().forEach(el -> {
-            el.forEach(eld->result.append(eld.getCellRepresentation().getRepresentation()));
+            el.forEach(eld->result.append(eld.getCellConsoleRepresentation().getRepresentation()));
             result.append(System.lineSeparator());
         });
         return result.toString();

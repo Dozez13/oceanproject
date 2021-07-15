@@ -43,7 +43,7 @@ class OceanControllerTest {
         StringBuilder expectedResult = new StringBuilder();
         CellGroup cellGroup = ocean.getCellGroup();
         cellGroup.getCells().forEach(el -> {
-            el.forEach(eld->expectedResult.append(eld.getCellRepresentation().getRepresentation()));
+            el.forEach(eld->expectedResult.append(eld.getCellConsoleRepresentation().getRepresentation()));
             expectedResult.append(System.lineSeparator());
         });
         oceanController.display();

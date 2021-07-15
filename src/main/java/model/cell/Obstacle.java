@@ -15,7 +15,7 @@ public class Obstacle extends Cell {
         super(oceanCoordinate,cellGroup);
     }
     @Override
-    public ConsoleRepresentation getCellRepresentation() {
+    public ConsoleRepresentation getCellConsoleRepresentation() {
         return CELL_REPRESENTATION;
     }
 }

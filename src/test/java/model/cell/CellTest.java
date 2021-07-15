@@ -42,7 +42,7 @@ class CellTest {
 
     @Test
     void getCellRepresentation() {
-        assertEquals(ConsoleRepresentation.CELL,cell.getCellRepresentation());
+        assertEquals(ConsoleRepresentation.CELL,cell.getCellConsoleRepresentation());
     }
 
     @Test

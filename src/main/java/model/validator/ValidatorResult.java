@@ -1,7 +1,7 @@
 package model.validator;
 
-public class ValidatorResult {
-    private String type;
-
-
-}
+//public class ValidatorResult {
+//    private String type;
+//
+//
+//}

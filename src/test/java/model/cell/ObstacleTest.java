@@ -10,6 +10,6 @@ class ObstacleTest {
     @Test
     void getCellRepresentation() {
         Obstacle obstacle = new Obstacle();
-        assertEquals(ConsoleRepresentation.OBSTACLE,obstacle.getCellRepresentation());
+        assertEquals(ConsoleRepresentation.OBSTACLE,obstacle.getCellConsoleRepresentation());
     }
 }

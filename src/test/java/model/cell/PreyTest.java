@@ -16,7 +16,7 @@ class PreyTest {
     }
     @Test
     void getCellRepresentation() {
-        assertEquals(ConsoleRepresentation.PREY,prey.getCellRepresentation());
+        assertEquals(ConsoleRepresentation.PREY,prey.getCellConsoleRepresentation());
     }
 
     @Test
