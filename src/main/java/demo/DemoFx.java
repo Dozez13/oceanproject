@@ -95,6 +95,6 @@ public class DemoFx extends Application {
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(scene);
         primaryStage.show();
-        System.out.println(Thread.currentThread().toString());
+
     }
 }

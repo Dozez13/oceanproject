@@ -25,5 +25,3 @@ Z
 *src/test/java/model/cell/PredatorTest.java,4\1\41be311f52c88186e9f13277d4d94727b5d6e62d
 V
 &src/test/java/model/cell/PreyTest.java,5\7\5780978c850958761d5e765eca6d0e7e37f05d45
-R
-"src/main/java/model/cell/Cell.java,2\3\23ce4f3e944b1024bc53b7e0c59beb83c000dfc8

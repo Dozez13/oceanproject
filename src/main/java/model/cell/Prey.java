@@ -1,15 +1,17 @@
 package model.cell;
 
 import constant.Constant;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import model.ConsoleRepresentation;
 
-import model.DesktopRepresentation;
+
 import model.point.Point;
 
 import java.util.Objects;
 
 public class Prey extends Cell {
-
+    private final ImageView preyDesktopImage = new ImageView(new Image("prey.png"));
     private int timeToReproduce;
     public Prey(){
         super();
@@ -23,8 +25,8 @@ public class Prey extends Cell {
         this.timeToReproduce = timeToReproduce;
     }
     @Override
-    public DesktopRepresentation getDesktopRepresentation(){
-        return DesktopRepresentation.PREY;
+    public ImageView getDesktopRepresentation(){
+        return preyDesktopImage;
     }
     @Override
     public ConsoleRepresentation getCellConsoleRepresentation() {

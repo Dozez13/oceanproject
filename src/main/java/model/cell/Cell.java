@@ -1,15 +1,18 @@
 package model.cell;
 
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import model.ConsoleRepresentation;
 
-import model.DesktopRepresentation;
+
 import model.point.Point;
 
 import java.util.Objects;
 
 public class Cell implements BaseCell {
     private final CellGroup cellGroup;
+    private final ImageView cellDesktopImage = new ImageView(new Image("cell.png"));
     private Point oceanCoordinate;
     private boolean moveIsDone = false;
     public Cell(){
@@ -49,8 +52,8 @@ public class Cell implements BaseCell {
         return cellGroup;
     }
 
-    public DesktopRepresentation getDesktopRepresentation(){
-        return DesktopRepresentation.CELL;
+    public ImageView getDesktopRepresentation(){
+        return cellDesktopImage;
     }
     public ConsoleRepresentation getCellConsoleRepresentation() {
         return ConsoleRepresentation.CELL;
