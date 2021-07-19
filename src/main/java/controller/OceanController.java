@@ -1,5 +1,8 @@
 package controller;
 
+
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import model.Ocean;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,22 +23,24 @@ public class OceanController {
 
     public void start() {
         LOGGER.info("Simulation is started");
-        for (int i = 0; i < iterationNumber; i++) {
-            if (ocean.getCellGroup().getPredatorNumber() - ocean.getCellGroup().getObstaclesNumber() == ocean.getCellGroup().getRowNum() * ocean.getCellGroup().getColNum() ||
-                    ocean.getCellGroup().getPreyNumber() == 0 || ocean.getCellGroup().getPredatorNumber() == 0) return;
-            display();
-            System.out.println("Predator number is "+ocean.getCellGroup().getPredatorNumber()+" Prey Number is "+ocean.getCellGroup().getPreyNumber()+" Obstacles number is "+ocean.getCellGroup().getObstaclesNumber());
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                LOGGER.error(e.getMessage());
-            }
-            ocean.processCell();
-            System.out.println(System.lineSeparator() + System.lineSeparator());
-            if (ocean.getCellGroup().getPredatorNumber() - ocean.getCellGroup().getObstaclesNumber() == ocean.getCellGroup().getRowNum() * ocean.getCellGroup().getColNum() ||
-                    ocean.getCellGroup().getPreyNumber() == 0 || ocean.getCellGroup().getPredatorNumber() == 0) return;
+     Task<Void> task = new Task<Void>() {
+         @Override
+         protected Void call() throws Exception {
+             for (int i = 0; i < iterationNumber; i++) {
 
-        }
+                 Platform.runLater(OceanController.this::display);
+                 Thread.sleep(500);
+                 ocean.processCell();
+                 if (ocean.getCellGroup().getPredatorNumber() - ocean.getCellGroup().getObstaclesNumber() == ocean.getCellGroup().getRowNum() * ocean.getCellGroup().getColNum() ||
+                         ocean.getCellGroup().getPreyNumber() == 0 || ocean.getCellGroup().getPredatorNumber() == 0) return null;
+
+             }
+             return null;
+         }
+     };
+     Thread thread = new Thread(task);
+     thread.setDaemon(true);
+     thread.start();
 
     }
 
